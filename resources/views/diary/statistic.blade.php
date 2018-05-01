@@ -1,11 +1,17 @@
-@inject('DaysStat','\App\Helper')
 
-<div class="box" style="">
-@foreach($DaysStat::getStringByArray($onemonthstat->statistics) as $days)
-        <div class="oneDayColumn" style="float: left;margin: 2px;width: 22px;">
-            @for($i=0;$i< count($days);$i++)
-                <input type="text" value="{{$days[$i]}}" style="width: 22px;height: 22px;">
+@inject('DaysStat','\App\DiaryHelper')
+
+
+
+@foreach($DaysStat::getStringByArray($onemonthstat->statistics) or 'Default' as $index => $days)
+        <div class="oneDayColumn">
+            <input class="inp day-num" type="text" value="{{$index+1}}">
+            @for($i=0;$i<count($days);$i++)
+                <input class="inp" inp_id="{{$i}}" type="text" value="{{$days[$i]}}">
             @endfor
         </div>
 @endforeach
-</div>
+
+
+
+

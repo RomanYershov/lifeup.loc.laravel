@@ -13,8 +13,15 @@ class DiaryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+       if($request->ajax()){
+           $onemonthstat=OneMonthStat::with('user')
+               ->where('user_id' ,Auth::user()->id)->get()
+               ->where('date',$request->date)->first();
+           if(!isset($onemonthstat)) return view('diary.noData');
+           return view('diary.statistic')->with(compact('onemonthstat'));
+       }
        $onemonthstat=OneMonthStat::with('user')->where('user_id' ,Auth::user()->id)->first();
 
        return view('diary.table')->with(compact("onemonthstat"));

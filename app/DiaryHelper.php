@@ -8,7 +8,7 @@
 
 namespace App;
 
- class Helper
+ class DiaryHelper
 {
  public static function getStringByArray($stringStat){
 
@@ -18,7 +18,6 @@ namespace App;
     foreach ($daysArr as $day){
         array_push($result,explode('^', $day));
     }
-//  dd($result[0][8]);
           return $result;
  }
  public static function getArrayByString($arrStat){

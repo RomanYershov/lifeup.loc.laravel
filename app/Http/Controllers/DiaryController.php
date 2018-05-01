@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\OneMonthStat;
 use Illuminate\Support\Facades\Auth;
+use App\DiaryHelper;
 
 class DiaryController extends Controller
 {
@@ -77,9 +78,14 @@ class DiaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        if($request->ajax()){
+          $updatedStat=OneMonthStat::where('id', $request->stat_id)->first();
+          $updatedStat->statistics=DiaryHelper::getStatByString($request->inp);
+          $updatedStat->save();
+          return "ok";
+        }
     }
 
     /**

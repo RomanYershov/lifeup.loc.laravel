@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/table', 'DiaryController');
+
+Route::post('/table/update', 'DiaryController@update');

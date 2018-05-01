@@ -23,7 +23,8 @@
 @section('content')
    <div class="container" style="margin: 0px 20px">
        <div class="well" style="padding: 5px;margin-top: 0px;">
-           <input type="month" class="month-inp" value="{{date('Y-m')}}">
+           <input type="month" name="selectedDate" class="month-inp" value="{{date('Y-m')}}">
+           <input type="submit" class="btn btn-success">
        </div>
       <div class="result">
           @include('diary.statistic')
@@ -42,8 +43,13 @@
         function getTable($date) {
             $.get('/table', {date:$date},function (data) {
                 $('.result').html(data);
-                console.log(data);
             })
-        }
+        };
+
+        $('.btn').click(function () {
+            $.post('/table/update', $('input').serialize(),function (data,status) {
+                console.log(status)
+            });
+        });
     </script>
     @endsection
